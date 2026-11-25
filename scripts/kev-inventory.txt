@@ -1,0 +1,67 @@
+# kev-inventory.txt -- what kev-watch.py matches CISA KEV entries against.
+# One case-insensitive Python regex per line, tested against "<vendorProject>: <product>"
+# exactly as KEV writes them (e.g. "Linux: Kernel", "Apache: HTTP Server", "Plex: Media Server").
+# Blank lines and # comments are ignored. Add a line when a new product goes live (home or cloud);
+# keep it broad enough to survive KEV's inconsistent naming ("PHP" vs "PHP Group").
+
+# --- OS / hypervisor / base system (every host) ---
+^linux: kernel
+^(canonical|ubuntu)\b
+^debian\b
+^proxmox\b
+\bqemu\b
+^(gnu|glibc).*(glibc|c library)
+^sudo\b
+^openssh\b|: openssh
+^openssl\b
+^(gnu|bash).*bash
+^red hat: polkit
+^systemd\b|: systemd
+^(docker|moby)\b(?!.*desktop)
+\bcontainerd\b|\brunc\b
+
+# --- web / app stacks ---
+^apache: (http server|apache)$
+^php( group)?: (php\b|fastcgi|fpm)
+^phpbb\b
+^nextcloud\b
+^collabora\b
+^(f5 )?nginx\b|: nginx
+nginx proxy manager
+^plex\b
+^jellyfin\b
+\bwiki\.?js\b
+^flarum\b
+^zulip\b
+^(kavita|audiobookshelf|tautulli|radicale|ombi|overseerr|jellyseerr|seerr)\b
+^(sonarr|radarr|lidarr|readarr|prowlarr|bazarr|mylar|sabnzbd|qbittorrent)\b
+open ?webui|^ollama\b
+
+# --- auth / secrets / git / chat ---
+^(goauthentik|authentik)\b
+^(bitwarden|vaultwarden)\b
+^(gitea|forgejo|codeberg)\b
+^smallstep\b|step-ca
+
+# --- data ---
+^mariadb\b|^oracle: mysql
+^postgresql\b
+^redis\b
+
+# --- monitoring / management ---
+^grafana( labs)?\b
+^prometheus\b
+^portainer\b
+^(louislam|uptime kuma)\b
+^crowdsec\b
+\bpi-?hole\b
+
+# --- network / edge ---
+^tailscale\b|^headscale\b|^juanfont\b
+^wireguard\b
+^tp-link\b
+^cloudflare\b
+^(raspberry pi|raspberrypi)\b
+
+# --- games ---
+^(mojang|microsoft): minecraft|papermc|velocity|crafty
